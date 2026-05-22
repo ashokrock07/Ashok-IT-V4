@@ -1,0 +1,50 @@
+{
+  "students": [
+    { "id": 1, "created_at": 1700000020000, "name": "Chandu Reddy", "phone": "9876543201", "course": "Java Full Stack", "batch": "Dec Morning", "fee_total": 38000, "fee_paid": 38000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 82 },
+    { "id": 2, "created_at": 1700000019000, "name": "Rakesh Kumar", "phone": "9876543202", "course": "Python Full Stack", "batch": "Dec Evening", "fee_total": 35000, "fee_paid": 20000, "fee_due": 15000, "due_date": "2024-12-20", "status": "partial", "progress": 45 },
+    { "id": 3, "created_at": 1700000018000, "name": "Ashok Varma", "phone": "9876543203", "course": "Data Science", "batch": "Nov Morning", "fee_total": 42000, "fee_paid": 0, "fee_due": 42000, "due_date": "2024-12-05", "status": "overdue", "progress": 10 },
+    { "id": 4, "created_at": 1700000017000, "name": "Ramesh Babu", "phone": "9876543204", "course": "AWS DevOps", "batch": "Jan Morning", "fee_total": 40000, "fee_paid": 40000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 68 },
+    { "id": 5, "created_at": 1700000016000, "name": "Suresh Rao", "phone": "9876543205", "course": "MERN Stack", "batch": "Dec Evening", "fee_total": 38000, "fee_paid": 18000, "fee_due": 20000, "due_date": "2024-12-15", "status": "partial", "progress": 33 },
+    { "id": 6, "created_at": 1700000015000, "name": "Karthik Naidu", "phone": "9876543206", "course": "Machine Learning", "batch": "Nov Evening", "fee_total": 45000, "fee_paid": 45000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 91 },
+    { "id": 7, "created_at": 1700000014000, "name": "Venkatesan S", "phone": "9876543207", "course": "SAP FICO", "batch": "Jan Morning", "fee_total": 44000, "fee_paid": 0, "fee_due": 44000, "due_date": "2024-12-10", "status": "overdue", "progress": 15 },
+    { "id": 8, "created_at": 1700000013000, "name": "Praveen Goud", "phone": "9876543208", "course": "Java Full Stack", "batch": "Dec Morning", "fee_total": 38000, "fee_paid": 38000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 77 },
+    { "id": 9, "created_at": 1700000012000, "name": "Srinivas Murthy", "phone": "9876543209", "course": "Data Science", "batch": "Nov Morning", "fee_total": 42000, "fee_paid": 22000, "fee_due": 20000, "due_date": "2024-12-18", "status": "partial", "progress": 54 },
+    { "id": 10, "created_at": 1700000011000, "name": "Naveen Chandra", "phone": "9876543210", "course": "Python Full Stack", "batch": "Dec Evening", "fee_total": 35000, "fee_paid": 35000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 88 },
+    { "id": 11, "created_at": 1700000010000, "name": "Harish Reddy", "phone": "9876543211", "course": "AWS DevOps", "batch": "Jan Morning", "fee_total": 40000, "fee_paid": 0, "fee_due": 40000, "due_date": "2024-12-08", "status": "overdue", "progress": 22 },
+    { "id": 12, "created_at": 1700000009000, "name": "Dinesh Kumar", "phone": "9876543212", "course": "MERN Stack", "batch": "Dec Evening", "fee_total": 38000, "fee_paid": 28000, "fee_due": 10000, "due_date": "2024-12-22", "status": "partial", "progress": 61 },
+    { "id": 13, "created_at": 1700000008000, "name": "Mahesh Babu", "phone": "9876543213", "course": "Machine Learning", "batch": "Nov Evening", "fee_total": 45000, "fee_paid": 45000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 95 },
+    { "id": 14, "created_at": 1700000007000, "name": "Lokesh Varma", "phone": "9876543214", "course": "SAP FICO", "batch": "Jan Morning", "fee_total": 44000, "fee_paid": 44000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 38 },
+    { "id": 15, "created_at": 1700000006000, "name": "Ganesh Naidu", "phone": "9876543215", "course": "Java Full Stack", "batch": "Dec Morning", "fee_total": 38000, "fee_paid": 10000, "fee_due": 28000, "due_date": "2024-12-12", "status": "partial", "progress": 28 },
+    { "id": 16, "created_at": 1700000005000, "name": "Aravind Rao", "phone": "9876543216", "course": "Python Full Stack", "batch": "Dec Evening", "fee_total": 35000, "fee_paid": 35000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 72 },
+    { "id": 17, "created_at": 1700000004000, "name": "Bhaskar Reddy", "phone": "9876543217", "course": "Data Science", "batch": "Nov Morning", "fee_total": 42000, "fee_paid": 0, "fee_due": 42000, "due_date": "2024-12-02", "status": "overdue", "progress": 12 },
+    { "id": 18, "created_at": 1700000003000, "name": "Vinod Kumar", "phone": "9876543218", "course": "AWS DevOps", "batch": "Jan Morning", "fee_total": 40000, "fee_paid": 32000, "fee_due": 8000, "due_date": "2024-12-25", "status": "partial", "progress": 57 },
+    { "id": 19, "created_at": 1700000002000, "name": "Satish Babu", "phone": "9876543219", "course": "MERN Stack", "batch": "Dec Evening", "fee_total": 38000, "fee_paid": 38000, "fee_due": 0, "due_date": null, "status": "paid", "progress": 84 },
+    { "id": 20, "created_at": 1700000001000, "name": "Nagarjuna S", "phone": "9876543220", "course": "Machine Learning", "batch": "Nov Evening", "fee_total": 45000, "fee_paid": 15000, "fee_due": 30000, "due_date": "2024-12-14", "status": "partial", "progress": 41 }
+  ],
+  "enquiries": [
+    { "id": 1, "created_at": 1700100005000, "name": "Ravi Shankar", "phone": "9800000001", "course": "Java Full Stack", "date": "2024-12-18", "status": "followup", "next_followup": "2024-12-21", "notes": "Very interested, asked about EMI options" },
+    { "id": 2, "created_at": 1700100004000, "name": "Deepak Raj", "phone": "9800000002", "course": "Data Science", "date": "2024-12-17", "status": "demo_booked", "next_followup": "2024-12-20", "notes": "Demo scheduled for Dec 20 at 10am" },
+    { "id": 3, "created_at": 1700100003000, "name": "Mohan Lal", "phone": "9800000003", "course": "AWS DevOps", "date": "2024-12-16", "status": "admitted", "next_followup": null, "notes": "Joined Jan batch, fee paid in full" },
+    { "id": 4, "created_at": 1700100002000, "name": "Vijay Kumar", "phone": "9800000004", "course": "MERN Stack", "date": "2024-12-15", "status": "not_responding", "next_followup": "2024-12-22", "notes": "Called 3 times, no response. Try WhatsApp." },
+    { "id": 5, "created_at": 1700100001000, "name": "Sanjay Gupta", "phone": "9800000005", "course": "Machine Learning", "date": "2024-12-14", "status": "followup", "next_followup": "2024-12-23", "notes": "Wants weekend batch, checking availability" }
+  ],
+  "batches": [
+    { "id": 1, "created_at": 1700200006000, "course": "Java Full Stack", "timing": "9:00 AM – 12:00 PM", "trainer": "Ramesh Kumar", "students": 42, "start_date": "2024-10-15", "progress": 75, "status": "ongoing" },
+    { "id": 2, "created_at": 1700200005000, "course": "Python Full Stack", "timing": "6:00 PM – 9:00 PM", "trainer": "Sridhar Mohan", "students": 38, "start_date": "2024-11-01", "progress": 52, "status": "ongoing" },
+    { "id": 3, "created_at": 1700200004000, "course": "Data Science", "timing": "9:00 AM – 12:00 PM", "trainer": "Divya Sharma", "students": 31, "start_date": "2024-11-15", "progress": 38, "status": "ongoing" },
+    { "id": 4, "created_at": 1700200003000, "course": "AWS DevOps", "timing": "2:00 PM – 5:00 PM", "trainer": "Venkat Rao", "students": 28, "start_date": "2024-09-20", "progress": 90, "status": "ending_soon" },
+    { "id": 5, "created_at": 1700200002000, "course": "Machine Learning", "timing": "6:00 PM – 9:00 PM", "trainer": "Mahesh P.", "students": 35, "start_date": "2024-11-10", "progress": 44, "status": "ongoing" },
+    { "id": 6, "created_at": 1700200001000, "course": "SAP FICO", "timing": "9:00 AM – 12:00 PM", "trainer": "Preethi Nair", "students": 22, "start_date": "2025-01-06", "progress": 0, "status": "starting_soon" }
+  ],
+  "staff": [
+    { "id": 1, "created_at": 1700300006000, "name": "Ramesh Kumar", "role": "Java Trainer", "phone": "9700000001", "email": "ramesh@ashok-it.in", "batches": 2, "salary": 58000, "status": "active" },
+    { "id": 2, "created_at": 1700300005000, "name": "Sridhar Mohan", "role": "Python Trainer", "phone": "9700000002", "email": "sridhar@ashok-it.in", "batches": 1, "salary": 55000, "status": "active" },
+    { "id": 3, "created_at": 1700300004000, "name": "Divya Sharma", "role": "Data Science Trainer", "phone": "9700000003", "email": "divya@ashok-it.in", "batches": 1, "salary": 62000, "status": "active" },
+    { "id": 4, "created_at": 1700300003000, "name": "Venkat Rao", "role": "DevOps Trainer", "phone": "9700000004", "email": "venkat@ashok-it.in", "batches": 1, "salary": 60000, "status": "active" },
+    { "id": 5, "created_at": 1700300002000, "name": "Preethi Nair", "role": "SAP Trainer", "phone": "9700000005", "email": "preethi@ashok-it.in", "batches": 1, "salary": 65000, "status": "active" },
+    { "id": 6, "created_at": 1700300001000, "name": "Sunita Devi", "role": "Counselor", "phone": "9700000006", "email": "sunita@ashok-it.in", "batches": 0, "salary": 32000, "status": "active" }
+  ],
+  "whatsapp_logs": [
+    { "id": 1, "student": "Ravi Shankar", "phone": "9800000001", "type": "enquiry_reply", "message": "Auto-reply sent for Java Full Stack enquiry", "time": "10:30 AM", "status": "delivered" }
+  ]
+}

@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashok IT — Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── THEME TOKENS ── */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface2: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --text-2: #475569;
+  --text-3: #94a3b8;
+  --text-4: #cbd5e1;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --accent-border: #bfdbfe;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+  --violet: #7c3aed;
+  --violet-bg: #f5f3ff;
+  --violet-border: #ddd6fe;
+  --sidebar-w: 224px;
+  --topbar-h: 56px;
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --radius: 10px;
+  --radius-sm: 7px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 20px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --tr: 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #1c2128;
+  --border: #30363d;
+  --border-strong: #444c56;
+  --text: #e6edf3;
+  --text-2: #8b949e;
+  --text-3: #6e7681;
+  --text-4: #484f58;
+  --accent-bg: #1d2d50;
+  --accent-border: #2f4a8c;
+  --success-bg: #0d2818;
+  --success-border: #1a4731;
+  --warning-bg: #271f0c;
+  --warning-border: #4a3310;
+  --danger-bg: #2d1515;
+  --danger-border: #5c2020;
+  --violet-bg: #1e1535;
+  --violet-border: #3d2a6e;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;font-size:14px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+button{font-family:var(--font);cursor:pointer}
+input,select,textarea{font-family:var(--font)}
+a{text-decoration:none;color:inherit}
+
+/* ── LAYOUT ── */
+.shell{display:flex;height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  height:100vh;overflow:hidden;
+}
+.brand{
+  padding:18px 20px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.brand-logo{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.brand-logo svg{width:16px;height:16px;color:#fff}
+.brand-name{font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:-0.2px}
+.brand-sub{font-size:10px;color:var(--text-3);font-weight:500;margin-top:1px}
+
+.nav{flex:1;padding:10px 10px;overflow-y:auto}
+.nav::-webkit-scrollbar{width:0}
+.nav-section{font-size:10px;font-weight:600;color:var(--text-4);letter-spacing:0.08em;text-transform:uppercase;padding:10px 10px 4px}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 10px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:500;color:var(--text-2);
+  cursor:pointer;margin-bottom:1px;
+  transition:all var(--tr);
+  position:relative;
+}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--accent-bg);color:var(--accent)}
+.nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:0.7}
+.nav-item.active svg{opacity:1}
+.nav-item-label{flex:1}
+.nav-badge{
+  font-size:10px;font-weight:600;
+  padding:1px 6px;border-radius:10px;
+  background:var(--danger-bg);color:var(--danger);
+  border:1px solid var(--danger-border);
+  min-width:18px;text-align:center;
+}
+.nav-badge.blue{background:var(--accent-bg);color:var(--accent);border-color:var(--accent-border)}
+
+.sidebar-footer{
+  padding:12px 14px;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;
+}
+.bot-status{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:500;color:var(--text-3);
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 0 2px var(--success-border);
+  animation:pulse-status 2s ease-in-out infinite;
+}
+@keyframes pulse-status{0%,100%{box-shadow:0 0 0 2px var(--success-border)}50%{box-shadow:0 0 0 4px rgba(22,163,74,0.15)}}
+.nav-item-settings{margin-top:4px}
+
+/* ── TOPBAR ── */
+.main-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{
+  height:var(--topbar-h);background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;flex-shrink:0;
+}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.page-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.tb-chip{
+  font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
+  background:var(--surface2);color:var(--text-3);
+  border:1px solid var(--border);
+}
+.tb-chip.live{
+  color:var(--success);background:var(--success-bg);border-color:var(--success-border);
+}
+#tb-clock{font-family:monospace;color:var(--text-2)}
+.icon-btn{
+  width:32px;height:32px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px solid var(--border);color:var(--text-2);
+  transition:all var(--tr);
+}
+.icon-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border-strong)}
+.icon-btn svg{width:15px;height:15px}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:24px}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-track{background:transparent}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── SECTIONS ── */
+.section{display:none}
+.section.active{display:block;animation:fadeIn 0.2s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── STAT CARDS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stats-grid-6{grid-template-columns:repeat(6,1fr)}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px;
+  box-shadow:var(--shadow-sm);
+  transition:box-shadow var(--tr),transform var(--tr);
+}
+.stat-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.stat-label{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px}
+.stat-value{font-size:24px;font-weight:700;color:var(--text);letter-spacing:-0.5px;line-height:1}
+.stat-value.accent{color:var(--accent)}
+.stat-value.success{color:var(--success)}
+.stat-value.warning{color:var(--warning)}
+.stat-value.danger{color:var(--danger)}
+.stat-sub{font-size:11px;color:var(--text-3);margin-top:5px}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);margin-bottom:14px;overflow:hidden}
+.card-head{padding:14px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:7px}
+.card-title-badge{
+  font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;
+  background:var(--accent-bg);color:var(--accent);
+}
+.card-body{overflow-x:auto}
+
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:1px solid var(--border)}
+th{padding:10px 16px;text-align:left;font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;background:var(--surface)}
+td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{transition:background var(--tr)}
+tbody tr:hover{background:var(--surface2)}
+.td-name{font-weight:600;color:var(--text)}
+.td-mono{font-family:monospace;font-size:12px}
+.td-muted{color:var(--text-3)}
+.tbl-actions{display:flex;align-items:center;gap:6px;white-space:nowrap}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.b-success{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border)}
+.b-success::before{background:var(--success)}
+.b-warning{background:var(--warning-bg);color:var(--warning);border:1px solid var(--warning-border)}
+.b-warning::before{background:var(--warning)}
+.b-danger{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-border)}
+.b-danger::before{background:var(--danger)}
+.b-accent{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
+.b-accent::before{background:var(--accent)}
+.b-violet{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-border)}
+.b-violet::before{background:var(--violet)}
+.b-gray{background:var(--surface2);color:var(--text-3);border:1px solid var(--border)}
+.b-gray::before{background:var(--text-4)}
+
+/* ── PROGRESS ── */
+.progress-wrap{}
+.progress-bar{height:4px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:5px}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.prog-success{background:var(--success)}
+.prog-accent{background:var(--accent)}
+.prog-warning{background:var(--warning)}
+.prog-danger{background:var(--danger)}
+.progress-pct{font-size:11px;font-weight:600;color:var(--text-3)}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:var(--radius-sm);
+  font-size:12.5px;font-weight:600;border:1px solid var(--border);
+  background:var(--surface);color:var(--text-2);
+  cursor:pointer;transition:all var(--tr);white-space:nowrap;
+  box-shadow:var(--shadow-sm);
+}
+.btn:hover{background:var(--surface2);border-color:var(--border-strong);color:var(--text)}
+.btn:active{transform:scale(0.98)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.btn-success{background:var(--success-bg);color:var(--success);border-color:var(--success-border)}
+.btn-success:hover{background:#dcfce7;color:var(--success)}
+.btn-danger{background:var(--danger-bg);color:var(--danger);border-color:var(--danger-border)}
+.btn-danger:hover{background:#fee2e2;color:var(--danger)}
+.btn-sm{padding:4px 10px;font-size:11.5px}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.toolbar-right{display:flex;align-items:center;gap:8px}
+
+/* ── SEARCH ── */
+.search-wrap{position:relative;display:inline-flex;align-items:center}
+.search-wrap svg{position:absolute;left:10px;width:14px;height:14px;color:var(--text-3);pointer-events:none}
+.search-inp{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:7px 12px 7px 32px;
+  font-size:12.5px;font-family:var(--font);color:var(--text);
+  outline:none;width:220px;transition:all var(--tr);
+}
+.search-inp::placeholder{color:var(--text-4)}
+.search-inp:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px rgba(37,99,235,0.1);width:260px}
+
+/* ── FILTER CHIPS ── */
+.chip{
+  padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;
+  border:1px solid var(--border);background:var(--surface);color:var(--text-2);
+  cursor:pointer;transition:all var(--tr);
+}
+.chip:hover{border-color:var(--border-strong);color:var(--text)}
+.chip.active{background:var(--accent-bg);border-color:var(--accent-border);color:var(--accent)}
+
+/* ── STATUS SELECT ── */
+.status-sel{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:4px 8px;font-size:11.5px;
+  font-family:var(--font);color:var(--text-2);outline:none;cursor:pointer;
+  transition:border-color var(--tr);
+}
+.status-sel:focus{border-color:var(--accent)}
+
+/* ── WHATSAPP ── */
+.wa-layout{display:grid;grid-template-columns:340px 1fr;gap:20px}
+.wa-device{
+  border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-md);
+}
+.wa-hdr{
+  background:#075e54;padding:13px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.wa-av{
+  width:34px;height:34px;border-radius:50%;
+  background:#25d366;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:#fff;flex-shrink:0;
+}
+.wa-hdr-name{font-size:13px;font-weight:600;color:#fff}
+.wa-hdr-sub{font-size:10px;color:rgba(255,255,255,0.65);margin-top:1px}
+.wa-body{
+  background:#f0ece3;padding:14px 12px;
+  min-height:300px;max-height:300px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:8px;
+}
+.wa-body::-webkit-scrollbar{width:3px}
+.wa-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
+.msg-bot{
+  align-self:flex-start;background:#fff;
+  border-radius:2px 12px 12px 12px;
+  padding:9px 12px;font-size:12.5px;line-height:1.55;
+  max-width:87%;color:#111;box-shadow:0 1px 2px rgba(0,0,0,0.08);
+}
+.msg-user{
+  align-self:flex-end;background:#d9fdd3;
+  border-radius:12px 2px 12px 12px;
+  padding:9px 12px;font-size:12.5px;line-height:1.55;
+  max-width:87%;color:#111;box-shadow:0 1px 2px rgba(0,0,0,0.08);
+}
+.msg-time{font-size:10px;color:#9a9a9a;text-align:right;margin-top:3px}
+.wa-inp-row{
+  background:#f0ece3;padding:10px 12px;
+  display:flex;gap:8px;align-items:center;
+  border-top:1px solid rgba(0,0,0,0.08);
+}
+.wa-inp{
+  flex:1;border:none;background:#fff;border-radius:20px;
+  padding:9px 14px;font-size:13px;font-family:var(--font);outline:none;color:#111;
+}
+.wa-send{
+  width:36px;height:36px;border-radius:50%;background:#075e54;
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background var(--tr);flex-shrink:0;
+}
+.wa-send:hover{background:#065048}
+.wa-send svg{width:15px;height:15px;color:#fff}
+.wa-right{display:flex;flex-direction:column;gap:0}
+.sc-header{font-size:10px;font-weight:700;color:var(--text-4);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:8px}
+.sc-btn{
+  width:100%;display:flex;align-items:flex-start;gap:11px;
+  padding:11px 13px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--surface);
+  color:var(--text-2);font-size:13px;cursor:pointer;text-align:left;
+  margin-bottom:7px;transition:all var(--tr);font-family:var(--font);
+}
+.sc-btn:hover{border-color:var(--border-strong);background:var(--surface2);color:var(--text)}
+.sc-btn.active{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent)}
+.sc-icon{width:30px;height:30px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-icon svg{width:14px;height:14px;color:var(--text-3)}
+.sc-btn.active .sc-icon{background:var(--accent-bg);border-color:var(--accent-border)}
+.sc-btn.active .sc-icon svg{color:var(--accent)}
+.sc-name{font-weight:600;font-size:12.5px}
+.sc-desc{font-size:11px;color:var(--text-3);margin-top:1px}
+.sc-btn.active .sc-desc{color:rgba(37,99,235,0.6)}
+.log-section{margin-top:16px}
+.log-item{background:var(--surface2);border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:6px;border:1px solid var(--border)}
+.log-name{font-size:12px;font-weight:600;color:var(--text)}
+.log-msg{font-size:11px;color:var(--text-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.log-time{font-size:10px;font-family:monospace;color:var(--text-4);float:right}
+.wa-note{margin-top:12px;padding:10px 13px;background:var(--success-bg);border:1px solid var(--success-border);border-radius:var(--radius-sm);font-size:11.5px;color:var(--success);line-height:1.5}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ── DASHBOARD BATCH GRID ── */
+.batch-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 20px}
+.batch-mini{background:var(--surface2);border-radius:var(--radius-sm);padding:13px;border:1px solid var(--border)}
+.batch-mini-name{font-size:12.5px;font-weight:600;color:var(--text)}
+.batch-mini-meta{font-size:11px;color:var(--text-3);margin-top:2px}
+
+/* ── MODALS ── */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.35);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:26px;
+  width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow-lg);
+  animation:modalIn 0.22s cubic-bezier(0.34,1.4,0.64,1) both;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(8px)}to{opacity:1;transform:none}}
+.modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:20px;letter-spacing:-0.3px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{margin-bottom:13px}
+.form-group.full{grid-column:1/-1}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px}
+.form-ctrl{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:9px 11px;
+  font-size:13px;font-family:var(--font);color:var(--text);outline:none;
+  transition:border-color var(--tr),box-shadow var(--tr);
+}
+.form-ctrl:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+.form-ctrl::placeholder{color:var(--text-4)}
+.form-ctrl[type="range"]{padding:4px 0;border:none;background:transparent;box-shadow:none;cursor:pointer}
+.form-ctrl[type="range"]:focus{box-shadow:none}
+.progress-edit-row{display:flex;align-items:center;gap:10px}
+.progress-edit-row input[type=range]{flex:1}
+.progress-edit-row span{font-size:13px;font-weight:600;color:var(--accent);min-width:32px;text-align:right}
+
+/* ── CONFIRM DIALOG ── */
+.confirm-modal{width:380px}
+.confirm-body{font-size:13.5px;color:var(--text-2);line-height:1.6;margin-bottom:6px}
+.confirm-name{font-weight:700;color:var(--text)}
+
+/* ── SETTINGS MODAL ── */
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:13px;font-weight:600;color:var(--text)}
+.settings-desc{font-size:11px;color:var(--text-3);margin-top:2px}
+.toggle{position:relative;width:38px;height:22px;cursor:pointer;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{
+  position:absolute;inset:0;border-radius:11px;
+  background:var(--border-strong);transition:background var(--tr);
+}
+.toggle input:checked ~ .toggle-track{background:var(--accent)}
+.toggle-thumb{
+  position:absolute;width:16px;height:16px;border-radius:50%;
+  background:#fff;top:3px;left:3px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  transition:transform var(--tr);
+}
+.toggle input:checked ~ .toggle-thumb{transform:translateX(16px)}
+.about-block{background:var(--surface2);border-radius:var(--radius-sm);padding:14px;margin-top:14px;border:1px solid var(--border)}
+.about-name{font-size:14px;font-weight:700;color:var(--text)}
+.about-meta{font-size:11px;color:var(--text-3);margin-top:3px;line-height:1.6}
+
+/* ── TOAST ── */
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:11px 16px;
+  font-size:13px;color:var(--text);font-weight:500;
+  box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:10px;
+  animation:toastIn 0.25s cubic-bezier(0.34,1.4,0.64,1) both,
+            toastOut 0.25s ease 2.7s both;
+  pointer-events:auto;min-width:220px;
+}
+.toast-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px) scale(0.95)}to{opacity:1;transform:none}}
+@keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateX(16px)}}
+
+/* ── EMPTY STATE ── */
+.empty{padding:40px 24px;text-align:center;color:var(--text-3);font-size:13px}
+.empty strong{display:block;font-size:14px;color:var(--text-2);font-weight:600;margin-bottom:4px}
+
+/* ── FEE TOP ── */
+.fee-top{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/>
+      </svg>
+    </div>
+    <div><div class="brand-name">Ashok IT</div><div class="brand-sub">Management System</div></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" data-sec="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="nav-item-label">Dashboard</span>
+    </div>
+    <div class="nav-item" data-sec="whatsapp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="nav-item-label">WhatsApp Bot</span>
+      <span class="nav-badge blue" id="nb-wa">0</span>
+    </div>
+
+    <div class="nav-section">Operations</div>
+    <div class="nav-item" data-sec="fees">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span class="nav-item-label">Fee Management</span>
+      <span class="nav-badge" id="nb-fees">0</span>
+    </div>
+    <div class="nav-item" data-sec="enquiries">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.21 3.58 2 2 0 0 1 3.22 1.4h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+      <span class="nav-item-label">Enquiries</span>
+    </div>
+    <div class="nav-item" data-sec="students">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="nav-item-label">Students</span>
+    </div>
+    <div class="nav-item" data-sec="batches">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="nav-item-label">Batches</span>
+    </div>
+
+    <div class="nav-section">Team</div>
+    <div class="nav-item" data-sec="staff">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="nav-item-label">Staff</span>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="bot-status">
+      <div class="status-dot"></div>
+      <span>Bot active &bull; 24/7</span>
+    </div>
+    <div class="nav-item nav-item-settings" onclick="openModal('modal-settings')" style="margin-bottom:0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 1.8 2.25L19 9l1 2-1.5 2.5 1.87 1.32A10 10 0 0 1 19.07 19.07L16.5 18 14 19l-.32 2.87a10 10 0 0 1-3.36 0L10 19l-2.5-1-2.18 1.87A10 10 0 0 1 4.93 17.5L6 16l-1-2 1.5-2.5L4.63 10.18A10 10 0 0 1 4.93 6.5L7.5 6 10 5l.32-2.87a10 10 0 0 1 3.36 0L14 5l2.5 1z"/></svg>
+      <span class="nav-item-label">Settings</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="page-title" id="pg-title">Dashboard</span>
+    </div>
+    <div class="topbar-right">
+      <span class="tb-chip">Hyderabad</span>
+      <span class="tb-chip live" id="bot-chip">Bot Active</span>
+      <span class="tb-chip" id="tb-clock">--:--:--</span>
+      <button class="icon-btn" id="theme-btn" title="Toggle theme" onclick="toggleTheme()">
+        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="icon-moon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" onclick="openModal('modal-settings')" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 1.8 2.25L19 9l1 2-1.5 2.5 1.87 1.32A10 10 0 0 1 19.07 19.07L16.5 18 14 19l-.32 2.87a10 10 0 0 1-3.36 0L10 19l-2.5-1-2.18 1.87A10 10 0 0 1 4.93 17.5L6 16l-1-2 1.5-2.5L4.63 10.18A10 10 0 0 1 4.93 6.5L7.5 6 10 5l.32-2.87a10 10 0 0 1 3.36 0L14 5l2.5 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <!-- DASHBOARD -->
+    <div class="section active" id="sec-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-value accent" id="d-students">—</div><div class="stat-sub">Active enrollments</div></div>
+        <div class="stat-card"><div class="stat-label">Fee Collected</div><div class="stat-value success" id="d-collected">—</div><div class="stat-sub">This period</div></div>
+        <div class="stat-card"><div class="stat-label">Outstanding</div><div class="stat-value danger" id="d-outstanding">—</div><div class="stat-sub" id="d-def-sub">defaulters</div></div>
+        <div class="stat-card"><div class="stat-label">Active Batches</div><div class="stat-value" id="d-batches">—</div><div class="stat-sub">Running now</div></div>
+      </div>
+      <div class="stats-grid two-stat">
+        <div class="stat-card"><div class="stat-label">Enquiries</div><div class="stat-value accent" id="d-enq">—</div><div class="stat-sub" id="d-fup-sub">follow-ups pending</div></div>
+        <div class="stat-card"><div class="stat-label">Bot Messages</div><div class="stat-value" id="d-wa">—</div><div class="stat-sub">Auto-handled</div></div>
+      </div>
+
+      <div class="two-col" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Fee Defaulters <span class="card-title-badge" id="d-def-count">0</span></div>
+            <button class="btn btn-sm" onclick="nav('fees')">View all</button>
+          </div>
+          <div class="card-body" id="d-def-tbl"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Recent Enquiries</div>
+            <button class="btn btn-sm" onclick="nav('enquiries')">View all</button>
+          </div>
+          <div class="card-body" id="d-enq-tbl"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">Batch Progress</div></div>
+        <div class="batch-mini-grid" id="d-batch-grid"></div>
+      </div>
+    </div>
+
+    <!-- WHATSAPP -->
+    <div class="section" id="sec-whatsapp">
+      <div class="wa-layout">
+        <div>
+          <div class="wa-device">
+            <div class="wa-hdr">
+              <div class="wa-av">A</div>
+              <div><div class="wa-hdr-name">Ashok IT</div><div class="wa-hdr-sub">online &bull; responds instantly</div></div>
+            </div>
+            <div class="wa-body" id="wa-msgs">
+              <div class="msg-bot">Welcome to Ashok IT! How can we help you?<br><br>1 — Course Details<br>2 — Fee Enquiry<br>3 — Book Demo Class<br>4 — Batch Timings<br>5 — Placement Info<div class="msg-time">now</div></div>
+            </div>
+            <div class="wa-inp-row">
+              <input class="wa-inp" id="wa-inp" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendBot()"/>
+              <button class="wa-send" onclick="sendBot()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="wa-note">This bot handles fee queries, course details, demo bookings, and reminders — automatically, 24/7.</div>
+        </div>
+
+        <div class="wa-right">
+          <div class="sc-header">Try a live scenario</div>
+          <button class="sc-btn" onclick="runScene('fee',this)">
+            <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><div class="sc-name">Fee Enquiry</div><div class="sc-desc">Student checks pending amount</div></div>
+          </button>
+          <button class="sc-btn" onclick="runScene('course',this)">
+            <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div><div class="sc-name">Course Details</div><div class="sc-desc">New user asks about Java course</div></div>
+          </button>
+          <button class="sc-btn" onclick="runScene('demo',this)">
+            <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div><div class="sc-name">Demo Booking</div><div class="sc-desc">Enquiry confirmed in 3 messages</div></div>
+          </button>
+          <button class="sc-btn" onclick="runScene('batch',this)">
+            <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="sc-name">Batch Timings</div><div class="sc-desc">Asks about Python batch schedule</div></div>
+          </button>
+          <button class="sc-btn" onclick="runScene('placement',this)">
+            <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <div><div class="sc-name">Placement Stats</div><div class="sc-desc">2024 hiring partners and salary</div></div>
+          </button>
+
+          <div class="log-section">
+            <div class="sc-header">Activity Log</div>
+            <div id="wa-logs"><div class="empty"><strong>No activity</strong>Try a scenario above</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEES -->
+    <div class="section" id="sec-fees">
+      <div class="fee-top">
+        <div class="stat-card"><div class="stat-label">Collected</div><div class="stat-value success" id="f-col">—</div><div class="stat-sub">Received</div></div>
+        <div class="stat-card"><div class="stat-label">Outstanding</div><div class="stat-value danger" id="f-pen">—</div><div class="stat-sub">Pending</div></div>
+        <div class="stat-card"><div class="stat-label">Defaulters</div><div class="stat-value danger" id="f-cnt">—</div><div class="stat-sub">Need reminder</div></div>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-inp" id="fee-search" placeholder="Search by name or course…" oninput="filterFees()"/>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-success" onclick="remindAll()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Send All Reminders
+          </button>
+        </div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Defaulter List</div></div><div class="card-body" id="fees-tbl"></div></div>
+    </div>
+
+    <!-- ENQUIRIES -->
+    <div class="section" id="sec-enquiries">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-inp" id="enq-search" placeholder="Search enquiries…" oninput="renderEnq()"/>
+          </div>
+          <span class="chip active" data-ef="all" onclick="setFilter('enq',this)">All</span>
+          <span class="chip" data-ef="followup" onclick="setFilter('enq',this)">Follow-up</span>
+          <span class="chip" data-ef="demo_booked" onclick="setFilter('enq',this)">Demo Booked</span>
+          <span class="chip" data-ef="admitted" onclick="setFilter('enq',this)">Admitted</span>
+          <span class="chip" data-ef="not_responding" onclick="setFilter('enq',this)">Not Responding</span>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="openAdd('enq')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Enquiry
+          </button>
+        </div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Enquiry Tracker</div></div><div class="card-body" id="enq-tbl"></div></div>
+    </div>
+
+    <!-- STUDENTS -->
+    <div class="section" id="sec-students">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-inp" id="stu-search" placeholder="Search students…" oninput="renderStu()"/>
+          </div>
+          <span class="chip active" data-sf="all" onclick="setFilter('stu',this)">All</span>
+          <span class="chip" data-sf="paid" onclick="setFilter('stu',this)">Paid</span>
+          <span class="chip" data-sf="partial" onclick="setFilter('stu',this)">Partial</span>
+          <span class="chip" data-sf="overdue" onclick="setFilter('stu',this)">Overdue</span>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="openAdd('stu')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Student
+          </button>
+        </div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Student Registry</div></div><div class="card-body" id="stu-tbl"></div></div>
+    </div>
+
+    <!-- BATCHES -->
+    <div class="section" id="sec-batches">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-inp" id="bat-search" placeholder="Search batches…" oninput="renderBat()"/>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="openAdd('bat')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Batch
+          </button>
+        </div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Batch Schedule</div></div><div class="card-body" id="bat-tbl"></div></div>
+    </div>
+
+    <!-- STAFF -->
+    <div class="section" id="sec-staff">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-inp" id="stf-search" placeholder="Search staff…" oninput="renderStf()"/>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="openAdd('stf')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Staff
+          </button>
+        </div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Staff Directory</div></div><div class="card-body" id="stf-tbl"></div></div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<!-- ═══ STUDENT MODAL ═══ -->
+<div class="overlay" id="modal-stu"><div class="modal">
+  <div class="modal-title" id="stu-modal-title">Add Student</div>
+  <div class="form-grid">
+    <div class="form-group"><label class="form-label">Full Name</label><input class="form-ctrl" id="s-name" placeholder="e.g. Ravi Kumar"/></div>
+    <div class="form-group"><label class="form-label">Phone</label><input class="form-ctrl" id="s-phone" placeholder="10-digit number"/></div>
+    <div class="form-group"><label class="form-label">Course</label>
+      <select class="form-ctrl" id="s-course">
+        <option>Java Full Stack</option><option>Python Full Stack</option><option>Data Science</option>
+        <option>MERN Stack</option><option>AWS DevOps</option><option>Machine Learning</option><option>SAP FICO</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Batch</label><input class="form-ctrl" id="s-batch" placeholder="e.g. Jan Morning"/></div>
+    <div class="form-group"><label class="form-label">Total Fee (Rs)</label><input class="form-ctrl" id="s-fee-total" type="number" placeholder="38000"/></div>
+    <div class="form-group"><label class="form-label">Amount Paid (Rs)</label><input class="form-ctrl" id="s-fee-paid" type="number" placeholder="0"/></div>
+    <div class="form-group"><label class="form-label">Due Date</label><input class="form-ctrl" id="s-due-date" type="date"/></div>
+    <div class="form-group"><label class="form-label">Progress (%)</label>
+      <div class="progress-edit-row">
+        <input class="form-ctrl" type="range" id="s-progress" min="0" max="100" value="0" oninput="document.getElementById('s-prog-val').textContent=this.value"/>
+        <span id="s-prog-val">0</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('modal-stu')">Cancel</button>
+    <button class="btn btn-primary" id="stu-save-btn" onclick="saveStu()">Add Student</button>
+  </div>
+</div></div>
+
+<!-- ═══ ENQUIRY MODAL ═══ -->
+<div class="overlay" id="modal-enq"><div class="modal">
+  <div class="modal-title" id="enq-modal-title">Add Enquiry</div>
+  <div class="form-grid">
+    <div class="form-group"><label class="form-label">Full Name</label><input class="form-ctrl" id="e-name" placeholder="Caller name"/></div>
+    <div class="form-group"><label class="form-label">Phone</label><input class="form-ctrl" id="e-phone" placeholder="Phone number"/></div>
+    <div class="form-group"><label class="form-label">Course Interest</label>
+      <select class="form-ctrl" id="e-course">
+        <option>Java Full Stack</option><option>Python Full Stack</option><option>Data Science</option>
+        <option>MERN Stack</option><option>AWS DevOps</option><option>Machine Learning</option><option>SAP FICO</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-ctrl" id="e-status">
+        <option value="followup">Follow-up</option><option value="demo_booked">Demo Booked</option>
+        <option value="admitted">Admitted</option><option value="not_responding">Not Responding</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Follow-up Date</label><input class="form-ctrl" id="e-followup" type="date"/></div>
+    <div class="form-group full"><label class="form-label">Notes</label><input class="form-ctrl" id="e-notes" placeholder="Any notes…"/></div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('modal-enq')">Cancel</button>
+    <button class="btn btn-primary" id="enq-save-btn" onclick="saveEnq()">Add Enquiry</button>
+  </div>
+</div></div>
+
+<!-- ═══ BATCH MODAL ═══ -->
+<div class="overlay" id="modal-bat"><div class="modal">
+  <div class="modal-title" id="bat-modal-title">Add Batch</div>
+  <div class="form-grid">
+    <div class="form-group"><label class="form-label">Course</label>
+      <select class="form-ctrl" id="b-course">
+        <option>Java Full Stack</option><option>Python Full Stack</option><option>Data Science</option>
+        <option>MERN Stack</option><option>AWS DevOps</option><option>Machine Learning</option><option>SAP FICO</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Timing</label><input class="form-ctrl" id="b-timing" placeholder="9:00 AM – 12:00 PM"/></div>
+    <div class="form-group"><label class="form-label">Trainer</label><input class="form-ctrl" id="b-trainer" placeholder="Trainer name"/></div>
+    <div class="form-group"><label class="form-label">Start Date</label><input class="form-ctrl" id="b-start" type="date"/></div>
+    <div class="form-group"><label class="form-label">Students Count</label><input class="form-ctrl" id="b-students" type="number" placeholder="0"/></div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-ctrl" id="b-status">
+        <option value="ongoing">Ongoing</option><option value="starting_soon">Starting Soon</option>
+        <option value="ending_soon">Ending Soon</option><option value="completed">Completed</option>
+      </select>
+    </div>
+    <div class="form-group full"><label class="form-label">Progress (%)</label>
+      <div class="progress-edit-row">
+        <input class="form-ctrl" type="range" id="b-progress" min="0" max="100" value="0" oninput="document.getElementById('b-prog-val').textContent=this.value"/>
+        <span id="b-prog-val">0</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('modal-bat')">Cancel</button>
+    <button class="btn btn-primary" id="bat-save-btn" onclick="saveBat()">Add Batch</button>
+  </div>
+</div></div>
+
+<!-- ═══ STAFF MODAL ═══ -->
+<div class="overlay" id="modal-stf"><div class="modal">
+  <div class="modal-title" id="stf-modal-title">Add Staff Member</div>
+  <div class="form-grid">
+    <div class="form-group"><label class="form-label">Full Name</label><input class="form-ctrl" id="sf-name" placeholder="Staff name"/></div>
+    <div class="form-group"><label class="form-label">Role</label><input class="form-ctrl" id="sf-role" placeholder="e.g. Java Trainer"/></div>
+    <div class="form-group"><label class="form-label">Phone</label><input class="form-ctrl" id="sf-phone" placeholder="Phone number"/></div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-ctrl" id="sf-email" placeholder="email@ashok-it.in"/></div>
+    <div class="form-group"><label class="form-label">Salary (Rs)</label><input class="form-ctrl" id="sf-salary" type="number" placeholder="50000"/></div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-ctrl" id="sf-status">
+        <option value="active">Active</option><option value="inactive">Inactive</option><option value="on_leave">On Leave</option>
+      </select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('modal-stf')">Cancel</button>
+    <button class="btn btn-primary" id="stf-save-btn" onclick="saveStf()">Add Staff</button>
+  </div>
+</div></div>
+
+<!-- ═══ CONFIRM DIALOG ═══ -->
+<div class="overlay" id="modal-confirm"><div class="modal confirm-modal">
+  <div class="modal-title">Confirm Delete</div>
+  <div class="confirm-body">Are you sure you want to delete <span class="confirm-name" id="confirm-name"></span>? This cannot be undone.</div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal('modal-confirm')">Cancel</button>
+    <button class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+  </div>
+</div></div>
+
+<!-- ═══ SETTINGS MODAL ═══ -->
+<div class="overlay" id="modal-settings"><div class="modal">
+  <div class="modal-title">Settings</div>
+  <div class="settings-row">
+    <div><div class="settings-label">Dark Mode</div><div class="settings-desc">Switch between light and dark theme</div></div>
+    <label class="toggle"><input type="checkbox" id="dark-toggle" onchange="toggleTheme()"/><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+  </div>
+  <div class="settings-row">
+    <div><div class="settings-label">Notifications</div><div class="settings-desc">Show toast notifications for actions</div></div>
+    <label class="toggle"><input type="checkbox" id="notif-toggle" checked/><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+  </div>
+  <div class="settings-row">
+    <div><div class="settings-label">Auto-refresh</div><div class="settings-desc">Refresh dashboard every 30 seconds</div></div>
+    <label class="toggle"><input type="checkbox" id="refresh-toggle" checked/><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+  </div>
+  <div class="about-block">
+    <div class="about-name">Ashok IT Management System</div>
+    <div class="about-meta">Version 1.0.0 &bull; Hyderabad, India<br>Node.js + Express &bull; JSON Database<br>Built for Ashok IT Coaching Center</div>
+  </div>
+  <div class="modal-footer"><button class="btn btn-primary" onclick="closeModal('modal-settings')">Done</button></div>
+</div></div>
+
+<div id="toast-container"></div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+/* ═══════════════════════════════════════
+   CORE
+═══════════════════════════════════════ */
+const BASE = window.location.origin;
+let allFees=[], allEnq=[], allStu=[], allBat=[], allStf=[];
+let enqFilter='all', stuFilter='all';
+let editId = null;
+let confirmFn = null;
+
+// Clock
+function tick(){document.getElementById('tb-clock').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true})}
+tick(); setInterval(tick,1000);
+
+// Theme
+function toggleTheme(){
+  const html=document.documentElement;
+  const dark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme', dark?'light':'dark');
+  document.getElementById('icon-sun').style.display=dark?'':'none';
+  document.getElementById('icon-moon').style.display=dark?'none':'';
+  document.getElementById('dark-toggle').checked=!dark;
+  localStorage.setItem('theme',dark?'light':'dark');
+}
+(function(){
+  const t=localStorage.getItem('theme');
+  if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('icon-sun').style.display='none';document.getElementById('icon-moon').style.display='';document.getElementById('dark-toggle').checked=true;}
+})();
+
+// Nav
+document.querySelectorAll('.nav-item[data-sec]').forEach(el=>{
+  el.addEventListener('click',()=>nav(el.dataset.sec,el));
+});
+function nav(sec,el){
+  document.querySelectorAll('.nav-item[data-sec]').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const t=el||document.querySelector(`[data-sec="${sec}"]`);
+  if(t)t.classList.add('active');
+  document.getElementById('sec-'+sec).classList.add('active');
+  const L={dashboard:'Dashboard',whatsapp:'WhatsApp Bot',fees:'Fee Management',enquiries:'Enquiries',students:'Students',batches:'Batches',staff:'Staff'};
+  document.getElementById('pg-title').textContent=L[sec]||sec;
+  ({dashboard:loadDash,fees:loadFees,enquiries:loadEnq,students:loadStu,batches:loadBat,staff:loadStf,whatsapp:loadWaLogs})[sec]?.();
+}
+
+// Toast
+function toast(msg,type='success'){
+  if(!document.getElementById('notif-toggle')?.checked)return;
+  const c=document.getElementById('toast-container');
+  const colors={success:['var(--success)'],danger:['var(--danger)'],info:['var(--accent)'],warning:['var(--warning)']};
+  const col=colors[type]||colors.info;
+  const d=document.createElement('div');d.className='toast';d.style.position='relative';
+  d.innerHTML=`<div class="toast-dot" style="background:${col[0]};flex-shrink:0"></div>${msg}`;
+  c.appendChild(d);setTimeout(()=>d.remove(),3000);
+}
+
+// Modal
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')})});
+
+// Confirm
+function confirmDelete(name,fn){
+  document.getElementById('confirm-name').textContent=name;
+  confirmFn=fn;
+  document.getElementById('confirm-delete-btn').onclick=()=>{fn();closeModal('modal-confirm')};
+  openModal('modal-confirm');
+}
+
+// Helpers
+const INR=n=>'Rs '+Number(n||0).toLocaleString('en-IN');
+const INRL=n=>'Rs '+(n/100000).toFixed(1)+'L';
+const nowTime=()=>new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+const api=async(path,opts={})=>{const r=await fetch(BASE+path,{headers:{'Content-Type':'application/json'},...opts});return r.json()};
+
+function badge(s){
+  const m={paid:'b-success',admitted:'b-success',active:'b-success',ongoing:'b-success',
+    partial:'b-warning',followup:'b-warning',late:'b-warning',starting_soon:'b-accent',on_leave:'b-accent',demo_booked:'b-violet',
+    overdue:'b-danger',not_responding:'b-danger',absent:'b-danger',ending_soon:'b-warning',inactive:'b-gray',completed:'b-gray'};
+  const l={paid:'Paid',admitted:'Admitted',active:'Active',ongoing:'Ongoing',partial:'Partial',followup:'Follow-up',
+    demo_booked:'Demo Booked',overdue:'Overdue',not_responding:'No Response',starting_soon:'Starting Soon',
+    ending_soon:'Ending Soon',completed:'Completed',inactive:'Inactive',on_leave:'On Leave'};
+  return `<span class="badge ${m[s]||'b-gray'}">${l[s]||s}</span>`;
+}
+
+function tbl(heads,rows,empty='No records found'){
+  if(!rows||!rows.length)return`<div class="empty"><strong>${empty}</strong></div>`;
+  return`<table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`;
+}
+
+function progBar(pct){
+  const cls=pct>=80?'prog-success':pct>=50?'prog-accent':pct>=25?'prog-warning':'prog-danger';
+  return`<div class="progress-wrap"><div class="progress-pct">${pct}%</div><div class="progress-bar"><div class="progress-fill ${cls}" style="width:${pct}%"></div></div></div>`;
+}
+
+function setFilter(type,el){
+  if(type==='enq'){enqFilter=el.dataset.ef;document.querySelectorAll('[data-ef]').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderEnq();}
+  else if(type==='stu'){stuFilter=el.dataset.sf;document.querySelectorAll('[data-sf]').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderStu();}
+}
+
+/* ═══════════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════════ */
+async function loadDash(){
+  const [stats,def,enq,bat]=await Promise.all([api('/api/dashboard'),api('/api/fees/defaulters'),api('/api/enquiries'),api('/api/batches')]);
+  document.getElementById('d-students').textContent=stats.totalStudents;
+  document.getElementById('d-collected').textContent=INRL(stats.feeCollected);
+  document.getElementById('d-outstanding').textContent=INRL(stats.feeOutstanding);
+  document.getElementById('d-def-sub').textContent=stats.defaultersCount+' defaulters';
+  document.getElementById('d-batches').textContent=stats.activeBatches;
+  document.getElementById('d-enq').textContent=stats.totalEnquiries;
+  document.getElementById('d-fup-sub').textContent=stats.pendingFollowups+' follow-ups pending';
+  document.getElementById('d-wa').textContent=stats.waMsgsSent;
+  document.getElementById('d-def-count').textContent=stats.defaultersCount;
+  document.getElementById('nb-fees').textContent=stats.defaultersCount;
+  document.getElementById('nb-wa').textContent=stats.waMsgsSent;
+
+  document.getElementById('d-def-tbl').innerHTML=tbl(['Name','Course','Amount Due',''],
+    def.slice(0,5).map(s=>`<tr><td class="td-name">${s.name}</td><td class="td-muted">${s.course}</td>
+      <td>${badge('overdue')} <span style="font-family:monospace;font-size:12px;color:var(--danger);margin-left:4px">${INR(s.fee_due)}</span></td>
+      <td><button class="btn btn-sm btn-success" onclick="remindOne(${s.id})">Remind</button></td></tr>`),'No defaulters');
+
+  document.getElementById('d-enq-tbl').innerHTML=tbl(['Name','Course','Status'],
+    enq.slice(0,5).map(e=>`<tr><td class="td-name">${e.name}</td><td class="td-muted">${e.course}</td><td>${badge(e.status)}</td></tr>`),'No enquiries');
+
+  document.getElementById('d-batch-grid').innerHTML=bat.slice(0,6).map(b=>`
+    <div class="batch-mini">
+      <div class="batch-mini-name">${b.course}</div>
+      <div class="batch-mini-meta">${b.students} students &bull; ${b.timing}</div>
+      <div class="progress-bar" style="margin-top:8px"><div class="progress-fill ${b.progress>=70?'prog-success':b.progress>=40?'prog-accent':'prog-warning'}" style="width:${b.progress}%"></div></div>
+      <div style="font-size:10px;color:var(--text-3);margin-top:4px;font-family:monospace">${b.progress}%</div>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════
+   FEES
+═══════════════════════════════════════ */
+async function loadFees(){
+  allFees=await api('/api/fees/defaulters');
+  const due=allFees.reduce((a,s)=>a+s.fee_due,0), paid=allFees.reduce((a,s)=>a+s.fee_paid,0);
+  document.getElementById('f-col').textContent=INRL(paid);
+  document.getElementById('f-pen').textContent=INR(due);
+  document.getElementById('f-cnt').textContent=allFees.length;
+  renderFees(allFees);
+}
+function renderFees(data){
+  document.getElementById('fees-tbl').innerHTML=tbl(
+    ['Name','Phone','Course','Due Date','Amount Due','Actions'],
+    data.map(s=>`<tr>
+      <td class="td-name">${s.name}</td><td class="td-mono">${s.phone}</td>
+      <td class="td-muted">${s.course}</td><td class="td-mono">${s.due_date||'—'}</td>
+      <td><span style="font-family:monospace;color:var(--danger);font-weight:600">${INR(s.fee_due)}</span></td>
+      <td><div class="tbl-actions">
+        <button class="btn btn-sm btn-success" onclick="remindOne(${s.id})">Remind</button>
+        <button class="btn btn-sm" onclick="editStu(${s.id})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('${s.name}',()=>deleteStu(${s.id}))">Delete</button>
+      </div></td></tr>`),
+    'No defaulters — all fees are up to date!');
+}
+function filterFees(){const q=document.getElementById('fee-search').value.toLowerCase();renderFees(allFees.filter(s=>s.name.toLowerCase().includes(q)||s.course.toLowerCase().includes(q)))}
+async function remindOne(id){const r=await api(`/api/fees/remind/${id}`,{method:'POST'});if(r.success){toast('WhatsApp reminder sent successfully','success');loadWaLogs();loadFees();}}
+async function remindAll(){const r=await api('/api/fees/remind-all',{method:'POST'});if(r.success){toast(`${r.count} reminders sent via WhatsApp`,'success');loadWaLogs();loadFees();}}
+
+/* ═══════════════════════════════════════
+   STUDENTS
+═══════════════════════════════════════ */
+async function loadStu(){allStu=await api('/api/students');renderStu()}
+function renderStu(){
+  const q=(document.getElementById('stu-search')?.value||'').toLowerCase();
+  let d=allStu;
+  if(stuFilter!=='all')d=d.filter(s=>s.status===stuFilter);
+  if(q)d=d.filter(s=>s.name.toLowerCase().includes(q)||s.course.toLowerCase().includes(q)||s.phone.includes(q));
+  document.getElementById('stu-tbl').innerHTML=tbl(
+    ['Name','Phone','Course','Batch','Fee Status','Progress','Actions'],
+    d.map(s=>`<tr>
+      <td class="td-name">${s.name}</td><td class="td-mono">${s.phone}</td>
+      <td class="td-muted">${s.course}</td><td class="td-muted">${s.batch||'—'}</td>
+      <td>${badge(s.status)}</td>
+      <td style="min-width:120px">${progBar(s.progress||0)}</td>
+      <td><div class="tbl-actions">
+        <button class="btn btn-sm" onclick="editStu(${s.id})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('${s.name}',()=>deleteStu(${s.id}))">Delete</button>
+      </div></td></tr>`));
+}
+
+function openAdd(type){
+  editId=null;
+  if(type==='stu'){
+    document.getElementById('stu-modal-title').textContent='Add Student';
+    document.getElementById('stu-save-btn').textContent='Add Student';
+    ['s-name','s-phone','s-batch'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('s-fee-total').value='';document.getElementById('s-fee-paid').value='';
+    document.getElementById('s-due-date').value='';
+    document.getElementById('s-progress').value=0;document.getElementById('s-prog-val').textContent='0';
+    openModal('modal-stu');
+  } else if(type==='enq'){
+    document.getElementById('enq-modal-title').textContent='Add Enquiry';
+    document.getElementById('enq-save-btn').textContent='Add Enquiry';
+    ['e-name','e-phone','e-notes','e-followup'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('e-status').value='followup';
+    openModal('modal-enq');
+  } else if(type==='bat'){
+    document.getElementById('bat-modal-title').textContent='Add Batch';
+    document.getElementById('bat-save-btn').textContent='Add Batch';
+    ['b-timing','b-trainer'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('b-start').value='';document.getElementById('b-students').value='';
+    document.getElementById('b-progress').value=0;document.getElementById('b-prog-val').textContent='0';
+    document.getElementById('b-status').value='starting_soon';
+    openModal('modal-bat');
+  } else if(type==='stf'){
+    document.getElementById('stf-modal-title').textContent='Add Staff Member';
+    document.getElementById('stf-save-btn').textContent='Add Staff';
+    ['sf-name','sf-role','sf-phone','sf-email','sf-salary'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('sf-status').value='active';
+    openModal('modal-stf');
+  }
+}
+
+function editStu(id){
+  const s=allStu.find(x=>x.id==id)||allFees.find(x=>x.id==id);if(!s)return;
+  editId=id;
+  document.getElementById('stu-modal-title').textContent='Edit Student';
+  document.getElementById('stu-save-btn').textContent='Save Changes';
+  document.getElementById('s-name').value=s.name||'';
+  document.getElementById('s-phone').value=s.phone||'';
+  document.getElementById('s-course').value=s.course||'Java Full Stack';
+  document.getElementById('s-batch').value=s.batch||'';
+  document.getElementById('s-fee-total').value=s.fee_total||'';
+  document.getElementById('s-fee-paid').value=s.fee_paid||'';
+  document.getElementById('s-due-date').value=s.due_date||'';
+  const p=s.progress||0;
+  document.getElementById('s-progress').value=p;document.getElementById('s-prog-val').textContent=p;
+  openModal('modal-stu');
+}
+async function saveStu(){
+  const ft=parseInt(document.getElementById('s-fee-total').value)||0;
+  const fp=parseInt(document.getElementById('s-fee-paid').value)||0;
+  const data={name:document.getElementById('s-name').value.trim(),phone:document.getElementById('s-phone').value.trim(),
+    course:document.getElementById('s-course').value,batch:document.getElementById('s-batch').value.trim(),
+    fee_total:ft,fee_paid:fp,due_date:document.getElementById('s-due-date').value||null,
+    progress:parseInt(document.getElementById('s-progress').value)||0};
+  if(!data.name||!data.phone)return toast('Name and phone are required','danger');
+  if(editId){await api(`/api/students/${editId}`,{method:'PUT',body:JSON.stringify(data)});toast('Student updated','info');}
+  else{await api('/api/students',{method:'POST',body:JSON.stringify(data)});toast('Student added','success');}
+  closeModal('modal-stu');loadStu();loadFees();
+}
+async function deleteStu(id){await api(`/api/students/${id}`,{method:'DELETE'});toast('Student deleted','danger');loadStu();loadFees();}
+
+/* ═══════════════════════════════════════
+   ENQUIRIES
+═══════════════════════════════════════ */
+async function loadEnq(){allEnq=await api('/api/enquiries');renderEnq()}
+function renderEnq(){
+  const q=(document.getElementById('enq-search')?.value||'').toLowerCase();
+  let d=allEnq;
+  if(enqFilter!=='all')d=d.filter(e=>e.status===enqFilter);
+  if(q)d=d.filter(e=>e.name.toLowerCase().includes(q)||e.course.toLowerCase().includes(q)||e.phone.includes(q));
+  document.getElementById('enq-tbl').innerHTML=tbl(
+    ['Name','Phone','Course','Date','Status','Follow-up','Notes','Actions'],
+    d.map(e=>`<tr>
+      <td class="td-name">${e.name}</td><td class="td-mono">${e.phone}</td>
+      <td class="td-muted">${e.course}</td><td class="td-mono">${e.date||'—'}</td>
+      <td>${badge(e.status)}</td>
+      <td class="td-mono" style="font-size:11px">${e.next_followup||'—'}</td>
+      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-3);font-size:12px">${e.notes||'—'}</td>
+      <td><div class="tbl-actions">
+        <button class="btn btn-sm" onclick="editEnq(${e.id})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('${e.name}',()=>deleteEnq(${e.id}))">Delete</button>
+      </div></td></tr>`));
+}
+function editEnq(id){
+  const e=allEnq.find(x=>x.id==id);if(!e)return;
+  editId=id;
+  document.getElementById('enq-modal-title').textContent='Edit Enquiry';
+  document.getElementById('enq-save-btn').textContent='Save Changes';
+  document.getElementById('e-name').value=e.name||'';
+  document.getElementById('e-phone').value=e.phone||'';
+  document.getElementById('e-course').value=e.course||'Java Full Stack';
+  document.getElementById('e-status').value=e.status||'followup';
+  document.getElementById('e-followup').value=e.next_followup||'';
+  document.getElementById('e-notes').value=e.notes||'';
+  openModal('modal-enq');
+}
+async function saveEnq(){
+  const data={name:document.getElementById('e-name').value.trim(),phone:document.getElementById('e-phone').value.trim(),
+    course:document.getElementById('e-course').value,status:document.getElementById('e-status').value,
+    next_followup:document.getElementById('e-followup').value||null,notes:document.getElementById('e-notes').value.trim()};
+  if(!data.name||!data.phone)return toast('Name and phone are required','danger');
+  if(editId){await api(`/api/enquiries/${editId}`,{method:'PUT',body:JSON.stringify(data)});toast('Enquiry updated','info');}
+  else{await api('/api/enquiries',{method:'POST',body:JSON.stringify(data)});toast('Enquiry added + WhatsApp reply sent','success');}
+  closeModal('modal-enq');loadEnq();editId=null;
+}
+async function deleteEnq(id){await api(`/api/enquiries/${id}`,{method:'DELETE'});toast('Enquiry deleted','danger');loadEnq();}
+
+/* ═══════════════════════════════════════
+   BATCHES
+═══════════════════════════════════════ */
+async function loadBat(){allBat=await api('/api/batches');renderBat()}
+function renderBat(){
+  const q=(document.getElementById('bat-search')?.value||'').toLowerCase();
+  const d=q?allBat.filter(b=>b.course.toLowerCase().includes(q)||b.trainer.toLowerCase().includes(q)):allBat;
+  document.getElementById('bat-tbl').innerHTML=tbl(
+    ['Course','Timing','Trainer','Students','Start Date','Progress','Status','Actions'],
+    d.map(b=>`<tr>
+      <td class="td-name">${b.course}</td><td class="td-muted">${b.timing}</td>
+      <td class="td-muted">${b.trainer}</td><td class="td-mono">${b.students||0}</td>
+      <td class="td-mono">${b.start_date||'—'}</td>
+      <td style="min-width:120px">${progBar(b.progress||0)}</td>
+      <td>${badge(b.status)}</td>
+      <td><div class="tbl-actions">
+        <button class="btn btn-sm" onclick="editBat(${b.id})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('${b.course}',()=>deleteBat(${b.id}))">Delete</button>
+      </div></td></tr>`));
+}
+function editBat(id){
+  const b=allBat.find(x=>x.id==id);if(!b)return;
+  editId=id;
+  document.getElementById('bat-modal-title').textContent='Edit Batch';
+  document.getElementById('bat-save-btn').textContent='Save Changes';
+  document.getElementById('b-course').value=b.course||'Java Full Stack';
+  document.getElementById('b-timing').value=b.timing||'';
+  document.getElementById('b-trainer').value=b.trainer||'';
+  document.getElementById('b-start').value=b.start_date||'';
+  document.getElementById('b-students').value=b.students||0;
+  document.getElementById('b-status').value=b.status||'ongoing';
+  const p=b.progress||0;
+  document.getElementById('b-progress').value=p;document.getElementById('b-prog-val').textContent=p;
+  openModal('modal-bat');
+}
+async function saveBat(){
+  const data={course:document.getElementById('b-course').value,timing:document.getElementById('b-timing').value.trim(),
+    trainer:document.getElementById('b-trainer').value.trim(),start_date:document.getElementById('b-start').value||null,
+    students:parseInt(document.getElementById('b-students').value)||0,
+    status:document.getElementById('b-status').value,
+    progress:parseInt(document.getElementById('b-progress').value)||0};
+  if(!data.timing||!data.trainer)return toast('Timing and trainer are required','danger');
+  if(editId){await api(`/api/batches/${editId}`,{method:'PUT',body:JSON.stringify(data)});toast('Batch updated','info');}
+  else{await api('/api/batches',{method:'POST',body:JSON.stringify(data)});toast('Batch added','success');}
+  closeModal('modal-bat');loadBat();editId=null;
+}
+async function deleteBat(id){await api(`/api/batches/${id}`,{method:'DELETE'});toast('Batch deleted','danger');loadBat();}
+
+/* ═══════════════════════════════════════
+   STAFF
+═══════════════════════════════════════ */
+async function loadStf(){allStf=await api('/api/staff');renderStf()}
+function renderStf(){
+  const q=(document.getElementById('stf-search')?.value||'').toLowerCase();
+  const d=q?allStf.filter(s=>s.name.toLowerCase().includes(q)||s.role.toLowerCase().includes(q)):allStf;
+  document.getElementById('stf-tbl').innerHTML=tbl(
+    ['Name','Role','Phone','Email','Batches','Salary','Status','Actions'],
+    d.map(s=>`<tr>
+      <td class="td-name">${s.name}</td><td class="td-muted">${s.role}</td>
+      <td class="td-mono">${s.phone}</td>
+      <td style="color:var(--text-3);font-size:12px">${s.email||'—'}</td>
+      <td class="td-mono">${s.batches||0}</td>
+      <td class="td-mono">${INR(s.salary)}</td>
+      <td>${badge(s.status)}</td>
+      <td><div class="tbl-actions">
+        <button class="btn btn-sm" onclick="editStf(${s.id})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="confirmDelete('${s.name}',()=>deleteStf(${s.id}))">Delete</button>
+      </div></td></tr>`));
+}
+function editStf(id){
+  const s=allStf.find(x=>x.id==id);if(!s)return;
+  editId=id;
+  document.getElementById('stf-modal-title').textContent='Edit Staff Member';
+  document.getElementById('stf-save-btn').textContent='Save Changes';
+  document.getElementById('sf-name').value=s.name||'';
+  document.getElementById('sf-role').value=s.role||'';
+  document.getElementById('sf-phone').value=s.phone||'';
+  document.getElementById('sf-email').value=s.email||'';
+  document.getElementById('sf-salary').value=s.salary||'';
+  document.getElementById('sf-status').value=s.status||'active';
+  openModal('modal-stf');
+}
+async function saveStf(){
+  const data={name:document.getElementById('sf-name').value.trim(),role:document.getElementById('sf-role').value.trim(),
+    phone:document.getElementById('sf-phone').value.trim(),email:document.getElementById('sf-email').value.trim(),
+    salary:parseInt(document.getElementById('sf-salary').value)||0,status:document.getElementById('sf-status').value};
+  if(!data.name||!data.role)return toast('Name and role are required','danger');
+  if(editId){await api(`/api/staff/${editId}`,{method:'PUT',body:JSON.stringify(data)});toast('Staff updated','info');}
+  else{await api('/api/staff',{method:'POST',body:JSON.stringify(data)});toast('Staff member added','success');}
+  closeModal('modal-stf');loadStf();editId=null;
+}
+async function deleteStf(id){await api(`/api/staff/${id}`,{method:'DELETE'});toast('Staff deleted','danger');loadStf();}
+
+/* ═══════════════════════════════════════
+   WHATSAPP
+═══════════════════════════════════════ */
+async function loadWaLogs(){
+  const logs=await api('/api/whatsapp/logs');
+  document.getElementById('wa-logs').innerHTML=logs.length
+    ?logs.map(l=>`<div class="log-item"><span class="log-time">${l.time}</span><div class="log-name">${l.student}</div><div class="log-msg">${l.message}</div></div>`).join('')
+    :`<div class="empty"><strong>No activity</strong>Try a scenario above</div>`;
+}
+
+const scenes={
+  fee:[{t:'u',m:'What is my fee due?'},{t:'b',m:'Please confirm your registered mobile number to retrieve your fee details.'},{t:'u',m:'9876543209'},{t:'b',m:'Hello Srinivas Murthy,\n\nFee Details:\nCourse: Data Science\nTotal Fee: Rs 42,000\nAmount Paid: Rs 22,000\nAmount Due: Rs 20,000\nDue Date: December 18\n\nPayment via GPay / PhonePe.\nContact: 040-XXXXXXX'}],
+  course:[{t:'u',m:'Tell me about Java course'},{t:'b',m:'Java Full Stack at Ashok IT:\n\nDuration: 3 months\nCurriculum: Core Java, Spring Boot, Hibernate, React\nFee: Rs 38,000\nNext Batch: January 6\nTimings: 9am-12pm or 6pm-9pm\n\nReply DEMO to book a free demo class.'}],
+  demo:[{t:'u',m:'I want to book a demo class'},{t:'b',m:'Free Demo Class Slots:\n\n1. Java Full Stack — Dec 20, 10:00 AM\n2. Python Full Stack — Dec 21, 11:00 AM\n3. Data Science — Dec 22, 10:00 AM\n4. AWS DevOps — Dec 23, 3:00 PM\n\nReply with slot number to confirm.'},{t:'u',m:'1'},{t:'b',m:'Confirmed!\n\nJava Full Stack Demo Class\nDate: December 20\nTime: 10:00 AM\nVenue: Ashok IT, Ameerpet, Hyderabad\n\nWe look forward to seeing you.'}],
+  batch:[{t:'u',m:'Python batch timings?'},{t:'b',m:'Python Full Stack Batch Schedule:\n\nMorning: 9:00 AM – 12:00 PM (Mon–Sat)\nEvening: 6:00 PM – 9:00 PM (Mon–Sat)\nWeekend: 9:00 AM – 1:00 PM (Sat–Sun)\n\nNext batch starts January 6.\n8 seats remaining.\n\nCall 040-XXXXXXX to confirm enrollment.'}],
+  placement:[{t:'u',m:'What is your placement record?'},{t:'b',m:'Ashok IT Placement 2024:\n\nPlacement Rate: 91%\nAverage Package: Rs 4.8 LPA\nHighest Package: Rs 9.2 LPA\n\nHiring Partners:\nTCS, Infosys, Wipro, Accenture,\nHCL, Capgemini, Tech Mahindra\n\nVisit our office for full placement records.'}]
+};
+
+function runScene(key,el){
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+  const msgs=document.getElementById('wa-msgs');msgs.innerHTML='';
+  let delay=0;
+  scenes[key].forEach(m=>{delay+=800;setTimeout(()=>{
+    const d=document.createElement('div');d.className=m.t==='b'?'msg-bot':'msg-user';
+    d.innerHTML=m.m.replace(/\n/g,'<br>')+`<div class="msg-time">${nowTime()}</div>`;
+    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  },delay)});
+}
+async function sendBot(){
+  const inp=document.getElementById('wa-inp'),val=inp.value.trim();if(!val)return;
+  const msgs=document.getElementById('wa-msgs');
+  const ud=document.createElement('div');ud.className='msg-user';
+  ud.innerHTML=val+`<div class="msg-time">${nowTime()}</div>`;
+  msgs.appendChild(ud);inp.value='';msgs.scrollTop=msgs.scrollHeight;
+  const res=await api('/api/whatsapp/bot',{method:'POST',body:JSON.stringify({message:val,phone:'9876543209'})});
+  setTimeout(()=>{
+    const bd=document.createElement('div');bd.className='msg-bot';
+    bd.innerHTML=res.reply.replace(/\n/g,'<br>')+`<div class="msg-time">${nowTime()}</div>`;
+    msgs.appendChild(bd);msgs.scrollTop=msgs.scrollHeight;loadWaLogs();
+  },700);
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+// Fix dashboard two stats display
+document.querySelector('.stats-grid.two-stat')?.style&&(document.querySelector('.stats-grid.two-stat').style.gridTemplateColumns='repeat(2,1fr)');
+loadDash();
+const autoRefresh=setInterval(()=>{if(document.getElementById('refresh-toggle')?.checked&&document.getElementById('sec-dashboard').classList.contains('active'))loadDash();},30000);
+</script>
+
+<style>
+/* WhatsApp Connect Panel */
+.wa-connect-banner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  margin-bottom: 20px; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; box-shadow: var(--shadow-sm);
+}
+.wa-connect-left { display: flex; align-items: center; gap: 14px; }
+.wa-connect-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: #25d366; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.wa-connect-icon svg { width: 22px; height: 22px; color: white; }
+.wa-connect-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.wa-connect-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+.wa-connect-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.wa-status-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border);
+}
+.wa-status-pill.disconnected { background: var(--surface2); color: var(--text-3); }
+.wa-status-pill.qr { background: var(--warning-bg); color: var(--warning); border-color: var(--warning-border); }
+.wa-status-pill.connecting { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-border); }
+.wa-status-pill.ready { background: var(--success-bg); color: var(--success); border-color: var(--success-border); }
+.wa-status-pill.error { background: var(--danger-bg); color: var(--danger); border-color: var(--danger-border); }
+.wa-status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+.qr-modal-body { text-align: center; padding: 8px 0; }
+.qr-img { width: 220px; height: 220px; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; margin: 0 auto 14px; display: block; }
+.qr-steps { text-align: left; background: var(--surface2); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 12.5px; color: var(--text-2); line-height: 2; border: 1px solid var(--border); }
+.qr-steps strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 13px; }
+.qr-loading { padding: 32px; text-align: center; color: var(--text-3); font-size: 13px; }
+.qr-spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.wa-live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 700;
+  background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border);
+}
+.wa-live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: pulse-status 1.5s ease-in-out infinite; }
+</style>
+
+<!-- QR Code Modal -->
+<div class="overlay" id="modal-qr"><div class="modal" style="width:400px;max-width:95vw">
+  <div class="modal-title">Connect WhatsApp</div>
+  <div id="qr-content">
+    <div class="qr-loading"><div class="qr-spinner"></div>Initialising WhatsApp…</div>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal('modal-qr')">Close</button></div>
+</div></div>
+
+<script>
+/* ════════════════════════════════
+   WHATSAPP REAL INTEGRATION
+════════════════════════════════ */
+const socket = io();
+let waCurrentStatus = 'disconnected';
+let waQRInterval = null;
+
+// Status pill HTML
+function waStatusPill(status, phone) {
+  const labels = { disconnected:'Not Connected', qr:'Scan QR Code', connecting:'Connecting…', ready:'Connected', error:'Error', unavailable:'Unavailable' };
+  const s = `<span class="wa-status-dot"></span>${labels[status]||status}`;
+  if(status==='ready'&&phone) return `<span class="wa-status-pill ready"><span class="wa-status-dot"></span>Connected: +${phone}</span>`;
+  return `<span class="wa-status-pill ${status}">${s}</span>`;
+}
+
+function renderWABanner(status, phone, qr) {
+  waCurrentStatus = status;
+  const banner = document.getElementById('wa-connect-banner');
+  if(!banner) return;
+
+  let rightHtml = '';
+  if(status === 'ready') {
+    rightHtml = `
+      <span class="wa-live-badge"><span class="wa-live-dot"></span>Live</span>
+      ${waStatusPill(status, phone)}
+      <button class="btn btn-sm btn-danger" onclick="disconnectWA()">Disconnect</button>`;
+  } else if(status === 'qr') {
+    rightHtml = `
+      ${waStatusPill(status)}
+      <button class="btn btn-sm btn-primary" onclick="openModal('modal-qr')">Scan QR Code</button>`;
+    renderQR(qr);
+  } else if(status === 'connecting') {
+    rightHtml = `${waStatusPill(status)} <div class="qr-spinner" style="width:20px;height:20px;margin:0"></div>`;
+  } else {
+    rightHtml = `
+      ${waStatusPill(status)}
+      <button class="btn btn-sm btn-primary" onclick="connectWA()">Connect WhatsApp</button>`;
+  }
+  banner.querySelector('.wa-connect-right').innerHTML = rightHtml;
+
+  // Update sidebar bot status text
+  const botChip = document.getElementById('bot-chip');
+  if(botChip) {
+    botChip.textContent = status === 'ready' ? 'WhatsApp Live' : 'Bot Active (Simulator)';
+    botChip.className = 'tb-chip ' + (status==='ready'?'live':'');
+  }
+}
+
+function renderQR(qr) {
+  if(!qr) return;
+  const content = document.getElementById('qr-content');
+  if(!content) return;
+  // Generate QR as image using QR Server API
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qr)}`;
+  content.innerHTML = `
+    <div class="qr-modal-body">
+      <img src="${qrUrl}" class="qr-img" alt="WhatsApp QR Code"/>
+      <div class="qr-steps">
+        <strong>Steps to connect:</strong>
+        1. Open WhatsApp on your phone<br>
+        2. Tap Menu (3 dots) → Linked Devices<br>
+        3. Tap "Link a Device"<br>
+        4. Scan this QR code<br>
+        5. Done — bot goes live instantly!
+      </div>
+    </div>`;
+}
+
+async function connectWA() {
+  const r = await fetch('/api/wa/connect', {method:'POST'});
+  const d = await r.json();
+  if(d.status === 'ready') {
+    toast('WhatsApp already connected!', 'success');
+    return;
+  }
+  if(!d.ok && d.status !== 'qr') {
+    toast(d.message || 'WhatsApp not available on this server.', 'warning');
+    return;
+  }
+  if(d.qr) renderQR(d.qr);
+  openModal('modal-qr');
+}
+
+async function disconnectWA() {
+  if(!confirm('Disconnect WhatsApp? Bot will stop receiving real messages.')) return;
+  await fetch('/api/wa/disconnect', {method:'POST'});
+  toast('WhatsApp disconnected', 'warning');
+}
+
+// Socket events
+socket.on('wa:status', ({status, phone, qr}) => {
+  renderWABanner(status, phone, qr);
+  if(status==='ready') { closeModal('modal-qr'); toast('WhatsApp connected! Bot is now live.', 'success'); }
+  if(status==='qr' && qr) renderQR(qr);
+});
+
+socket.on('wa:message', (log) => {
+  toast(`New message from ${log.student}`, 'info');
+  loadWaLogs();
+});
+
+socket.on('wa:bulk', ({count}) => { loadWaLogs(); });
+
+// Init — fetch status on load
+(async function initWAStatus() {
+  try {
+    const r = await fetch('/api/wa/status');
+    const d = await r.json();
+    renderWABanner(d.status, d.phone, d.qr);
+  } catch(_) {}
+})();
+
+// Inject banner into WhatsApp section
+document.addEventListener('DOMContentLoaded', () => {
+  const waSection = document.getElementById('sec-whatsapp');
+  if(waSection) {
+    const banner = document.createElement('div');
+    banner.id = 'wa-connect-banner';
+    banner.className = 'wa-connect-banner';
+    banner.innerHTML = `
+      <div class="wa-connect-left">
+        <div class="wa-connect-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <div class="wa-connect-title">WhatsApp Integration</div>
+          <div class="wa-connect-sub">Connect your phone to enable real two-way messaging</div>
+        </div>
+      </div>
+      <div class="wa-connect-right">
+        <span class="wa-status-pill disconnected"><span class="wa-status-dot"></span>Not Connected</span>
+        <button class="btn btn-sm btn-primary" onclick="connectWA()">Connect WhatsApp</button>
+      </div>`;
+    waSection.insertBefore(banner, waSection.firstChild);
+  }
+});
+</script>
+</body>
+</html>
